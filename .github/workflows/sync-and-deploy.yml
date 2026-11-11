@@ -42,11 +42,16 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- blog-data.js
           git commit -m '네이버 블로그 게시글 동기화'
-          git push origin HEAD:main
+          if ! git push origin HEAD:main; then
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+          fi
       - name: 공개 파일 준비
         run: |
           mkdir -p _site
-          cp index.html blog-data.js posts.js _site/
+          cp index.html blog-data.js posts.js school-content.json _site/
+          cp admin/public/school-content.mjs _site/
           cp -R files _site/
       - uses: actions/upload-pages-artifact@v3
         with:

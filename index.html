@@ -981,7 +981,7 @@
             }).join('');
         }
 
-        function initData() {
+        function initData(schoolPosts = []) {
             const blogPosts = (typeof BLOG_DATA !== 'undefined' && BLOG_DATA.posts) ? BLOG_DATA.posts : [];
             const fileGallery = (typeof GALLERY_POSTS !== 'undefined') ? GALLERY_POSTS : [];
             const fileComm = (typeof COMMUNITY_POSTS !== 'undefined') ? COMMUNITY_POSTS : [];
@@ -1019,7 +1019,7 @@
                 }))
             ];
 
-            allPosts = [...fileCustom, ...blogPosts];
+            allPosts = [...schoolPosts, ...fileCustom, ...blogPosts];
             allPosts.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || String(b.date).localeCompare(String(a.date)));
         }
 
@@ -1122,7 +1122,7 @@
                         </div>
                         <div class="min-w-0">
                             <h4 class="font-bold text-base text-slate-900 truncate">${escapeHtml(p.title)}</h4>
-                            <p class="text-xs text-slate-500 mt-0.5 truncate">${escapeHtml(p.summary || '클릭하여 세부 학사일정 달력을 확인하세요.')}</p>
+                            <p class="text-xs text-slate-500 mt-0.5 truncate">${p.id.startsWith('school_') ? '학교 홈페이지 · ' : ''}${escapeHtml(p.summary || '클릭하여 세부 학사일정 달력을 확인하세요.')}</p>
                         </div>
                     </div>
                     <div class="shrink-0 flex items-center gap-3">
@@ -1329,7 +1329,31 @@
             renderCommunity();
             renderAdmissionContent();
             safeIcons();
+            loadSchoolPosts();
         });
+
+        async function loadSchoolPosts() {
+            try {
+                const { contentPath, readContent, toWebsitePost, validId } = await import('./school-content.mjs');
+                const url = new URL(contentPath, location.href);
+                const revision = new URLSearchParams(location.search).get('publication');
+                if (validId(revision)) url.searchParams.set('publication', revision);
+                const response = await fetch(url, { cache: 'no-cache', signal: AbortSignal.timeout(8000) });
+                if (!response.ok) return;
+                const posts = readContent(await response.json()).posts.map(toWebsitePost);
+                initData(posts);
+                renderSchedule();
+                renderCommunity();
+
+                const linkedPost = posts.find(post => location.hash === '#' + post.id);
+                if (linkedPost && currentTab === 'home') {
+                    showTab(linkedPost.cat === '학교일정' ? 'schedule' : 'community');
+                    viewPost(linkedPost.id);
+                }
+            } catch {
+                // The existing blog and site content can still be read.
+            }
+        }
     </script>
 </body>
 </html>

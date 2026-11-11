@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>마음더하기학교 홈페이지 관리</title>
+  <link rel="stylesheet" href="/admin.css">
+  <script type="module" src="/admin.mjs"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div><strong>마음더하기학교</strong><span>홈페이지 관리</span></div>
+      <a href="https://mdschool.or.kr/" target="_blank" rel="noopener">홈페이지 열기 ↗</a>
+    </div>
+  </header>
+  <main>
+    <aside class="list-panel" aria-labelledby="list-title">
+      <div class="panel-heading">
+        <h2 id="list-title">발행한 게시글</h2>
+        <button id="reload" type="button" class="quiet">목록 새로고침</button>
+      </div>
+      <div class="new-post">
+        <button id="new-notice" type="button">새 공지</button>
+        <button id="new-schedule" type="button">새 학사일정</button>
+      </div>
+      <p id="empty-list" class="muted">게시글을 불러오는 중입니다.</p>
+      <ul id="posts"></ul>
+    </aside>
+    <section class="editor" aria-labelledby="editor-title">
+      <div class="panel-heading">
+        <h1 id="editor-title">새 공지</h1>
+        <span id="account" class="muted"></span>
+      </div>
+      <p id="status" role="status" aria-live="polite"></p>
+      <div id="publication" hidden>
+        <span id="publication-status"></span>
+        <button id="check-live" type="button" class="quiet">반영 상태 확인</button>
+        <a id="open-post" target="_blank" rel="noopener" hidden>홈페이지에서 보기 ↗</a>
+      </div>
+      <form id="editor-form">
+        <fieldset id="fields" disabled>
+          <label for="title">제목</label>
+          <input id="title" required maxlength="100">
+          <div id="notice-fields" class="row">
+            <div>
+              <label for="board">게시판</label>
+              <select id="board">
+                <option>학부모게시판</option><option>학생게시판</option><option>교사게시판</option>
+              </select>
+            </div>
+            <label class="checkbox"><input id="pinned" type="checkbox"> 공지로 고정</label>
+          </div>
+          <div id="schedule-fields" hidden>
+            <label for="month">일정 연월</label>
+            <input id="month" type="month" min="2000-01" max="2099-12">
+            <div id="calendar"></div>
+          </div>
+          <label for="body" id="body-label">본문</label>
+          <textarea id="body" maxlength="5000" rows="9"></textarea>
+          <div class="actions">
+            <button id="delete" type="button" class="danger" hidden>삭제</button>
+            <button type="submit" class="primary">미리보기</button>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+    <dialog id="preview" aria-labelledby="preview-heading">
+      <h2 id="preview-heading">발행 미리보기</h2>
+      <p id="preview-meta" class="muted"></p>
+      <h3 id="preview-title"></h3>
+      <div id="preview-calendar"></div>
+      <p id="preview-body"></p>
+      <p class="muted">발행한 내용은 누구나 볼 수 있고 공개 저장소에 수정 이력이 남습니다.</p>
+      <p id="preview-error" role="alert" hidden></p>
+      <div class="actions">
+        <button id="close-preview" type="button">편집으로 돌아가기</button>
+        <button id="publish" type="button" class="primary">공개 홈페이지에 발행</button>
+      </div>
+    </dialog>
+  </main>
+</body>
+</html>
