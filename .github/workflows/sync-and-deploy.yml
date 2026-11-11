@@ -1,0 +1,66 @@
+name: 네이버 블로그 동기화 및 홈페이지 배포
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # 한국 시간 매일 06:00, 12:00, 18:00
+    - cron: '0 3,9,21 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        if: github.event_name != 'push'
+        with:
+          node-version: '24'
+      - name: 공개 블로그 글 동기화
+        if: github.event_name != 'push'
+        run: node tools/sync-blog.js
+      - name: 변경된 블로그 데이터 저장
+        if: github.event_name != 'push'
+        run: |
+          if git diff --quiet -- blog-data.js; then
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- blog-data.js
+          git commit -m '네이버 블로그 게시글 동기화'
+          git push origin HEAD:main
+      - name: 공개 파일 준비
+        run: |
+          mkdir -p _site
+          cp index.html blog-data.js posts.js _site/
+          cp -R files _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: prepare
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v5
+        id: deployment
