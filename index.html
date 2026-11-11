@@ -1,2 +1,1335 @@
-<meta charset="utf-8">
-<h1>마음더하기학교 홈페이지 준비 중입니다</h1>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 네이버 블로그 이미지 및 스티커 CDN 핫링크 차단 방지 -->
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title id="site-head-title">마음더하기학교 | 인천광역시교육청 지정 치유형 대안교육 위탁교육기관</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Pretendard 한글 웹폰트 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- 아이콘 (Lucide Icons) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; scroll-behavior: smooth; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.25s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* 네이버 블로그 스마트에디터 스타일 본문 */
+        /* 네이버 블로그 스마트에디터 ONE 완벽 클론 스타일 (100% 규격 일치) */
+        @import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css');
+
+        .se-post-content {
+            font-family: 'NanumSquare', 'Pretendard', -apple-system, sans-serif;
+            line-height: 1.8;
+            font-size: 15px;
+            color: #222222;
+            letter-spacing: -0.015em;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            max-width: 733px;
+            margin: 0 auto;
+        }
+        .se-post-content p {
+            margin: 0 0 14px 0;
+            line-height: 1.8;
+            word-break: break-word;
+        }
+        .se-post-content p.se-empty-line {
+            height: 22px;
+            margin: 0;
+        }
+        .se-post-content p.text-center {
+            text-align: center;
+        }
+        .se-post-content p.text-left {
+            text-align: left;
+        }
+
+        /* 단일 사진 규격 */
+        .se-post-content img.se-single-img {
+            border-radius: 6px;
+            margin: 28px auto;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: none;
+        }
+
+        /* 묶음 사진 규격: 단일 사진과 동일한 상하 여백(28px) 및 네이버 공식 초밀착 4px 간격 */
+        .se-image-group-container {
+            margin: 28px auto;
+            max-width: 100%;
+        }
+        .se-image-group-row {
+            display: flex;
+            align-items: stretch;
+            gap: 4px; /* 네이버 공식 4px 틈새 */
+            width: 100%;
+        }
+        .se-image-group-item {
+            overflow: hidden;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+        .se-image-group-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.25s ease, opacity 0.2s ease;
+        }
+        .se-image-group-item:hover img {
+            opacity: 0.95;
+            transform: scale(1.02);
+        }
+
+        /* 네이버 스티커 규격: 원본 블로그 비율에 맞춘 시원한 크기 (모바일 145px, PC 185px) */
+        .se-post-content .se-sticker-img {
+            width: 185px;
+            height: 185px;
+            object-fit: contain;
+            margin: 32px auto;
+            display: block;
+            box-shadow: none;
+            border-radius: 0;
+            image-rendering: -webkit-optimize-contrast;
+            transition: transform 0.2s ease;
+        }
+        @media (max-width: 640px) {
+            .se-post-content .se-sticker-img {
+                width: 145px;
+                height: 145px;
+                margin: 24px auto;
+            }
+        }
+        .se-post-content .se-sticker-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* 표 */
+        .se-post-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 28px 0;
+            font-size: 14px;
+            border: 1px solid #e2e8f0;
+        }
+        .se-post-content th, .se-post-content td {
+            border: 1px solid #e2e8f0;
+            padding: 10px 14px;
+            vertical-align: middle;
+        }
+
+        /* 구분선 */
+        .se-post-content hr {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 36px auto;
+            max-width: 60%;
+        }
+
+        /* 네이버 블로그 정확한 글자 크기 스케일 */
+        .se-fs-fs11 { font-size: 13px !important; }
+        .se-fs-fs13 { font-size: 15px !important; }
+        .se-fs-fs15 { font-size: 16px !important; }
+        .se-fs-fs16 { font-size: 17px !important; }
+        .se-fs-fs19 { font-size: 19px !important; font-weight: 700; }
+        .se-fs-fs24 { font-size: 24px !important; font-weight: 700; }
+        .se-fs-fs26 { font-size: 26px !important; font-weight: 800; }
+
+        /* 네이버 밑줄형 인용구 (상단 따옴표 아이콘 + 하단 포인트 밑줄) */
+        .se-quote-underline {
+            position: relative;
+            padding: 24px 0 16px 0;
+            border-bottom: 1px solid #333333;
+            margin: 32px 0 24px 0;
+            display: block;
+        }
+        .se-quote-underline::before {
+            content: "“";
+            position: absolute;
+            top: -4px;
+            left: 0;
+            font-size: 28px;
+            line-height: 1;
+            font-family: serif;
+            font-weight: 900;
+            color: #059669;
+            opacity: 0.95;
+        }
+        .se-quote-underline .se-quote-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #111827;
+            letter-spacing: -0.02em;
+            line-height: 1.4;
+        }
+        .se-quote-underline .se-quote-cite {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+.drag-active { border-color: #059669 !important; background-color: #ecfdf5 !important; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- [상단 헤더 네비게이션] -->
+    <header class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- 학교 로고 -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showTab('home')">
+                    <div class="w-11 h-11 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-md shadow-blue-200 relative shrink-0">
+                        <i data-lucide="heart" class="w-6 h-6 fill-current"></i>
+                        <span class="absolute text-blue-600 font-black text-xs">+</span>
+                    </div>
+                    <div>
+                        <span id="nav-school-name" class="text-xl font-bold text-slate-900 tracking-tight block">마음더하기학교</span>
+                        <span id="nav-school-sub" class="text-xs text-blue-600 font-medium block">인천시교육청 지정 치유형 위탁교육기관</span>
+                    </div>
+                </div>
+
+                <!-- 데스크톱 메뉴 -->
+                <nav class="hidden lg:flex space-x-1 font-medium text-sm">
+                    <button onclick="showTab('home')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition" data-tab="home">홈</button>
+                    <button onclick="showTab('about')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition" data-tab="about">학교소개</button>
+                    <button onclick="showTab('admission')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition" data-tab="admission">위탁절차</button>
+                    <button onclick="showTab('gallery')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition" data-tab="gallery">수업·행사활동</button>
+                    <button onclick="showTab('schedule')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition" data-tab="schedule">학사일정</button>
+                    <button onclick="showTab('community')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition" data-tab="community">마음더하기 광장</button>
+                </nav>
+
+                <!-- 우측 메뉴: 블로그 / 전화 -->
+                <div class="flex items-center space-x-2">
+                    <a href="https://blog.naver.com/mdlove503" target="_blank" rel="noopener" class="hidden sm:flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition border border-emerald-200">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>네이버 블로그</span>
+                    </a>
+                    <a id="nav-phone-link" href="tel:032-503-7080" class="flex items-center space-x-1.5 bg-blue-600 text-white px-3.5 py-2 rounded-xl text-xs font-semibold hover:bg-blue-700 transition shadow-sm">
+                        <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                        <span id="nav-phone-text">032-503-7080</span>
+                    </a>
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="mobile-menu" class="hidden lg:hidden pb-4 pt-2 border-t border-slate-100 grid grid-cols-2 gap-2 text-sm font-medium">
+                <button onclick="showTab('home'); toggleMobileMenu()" class="p-2.5 rounded-lg text-left hover:bg-blue-50">홈</button>
+                <button onclick="showTab('about'); toggleMobileMenu()" class="p-2.5 rounded-lg text-left hover:bg-blue-50">학교소개</button>
+                <button onclick="showTab('admission'); toggleMobileMenu()" class="p-2.5 rounded-lg text-left hover:bg-blue-50">위탁절차</button>
+                <button onclick="showTab('gallery'); toggleMobileMenu()" class="p-2.5 rounded-lg text-left hover:bg-blue-50">수업·행사활동</button>
+                <button onclick="showTab('schedule'); toggleMobileMenu()" class="p-2.5 rounded-lg text-left hover:bg-blue-50">학사일정</button>
+                <button onclick="showTab('community'); toggleMobileMenu()" class="p-2.5 rounded-lg text-left hover:bg-blue-50">마음더하기 광장</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- ==================== 1. 홈 ==================== -->
+        <section id="home" class="tab-content active">
+            <!-- 히어로 배너 (구성 수정 가능) -->
+            <div class="relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white py-20 px-4 overflow-hidden">
+                <div class="max-w-5xl mx-auto text-center relative z-10">
+                    <span id="hero-badge" class="inline-block py-1 px-3 rounded-full bg-blue-500/30 border border-blue-300/30 text-blue-100 text-xs font-semibold mb-4">
+                        중·고등학교 통합과정 치유형 대안학교 (운영주체: 인천바오로의원)
+                    </span>
+                    <h1 id="hero-title" class="text-3xl md:text-5xl font-extrabold mb-5 leading-tight break-keep">
+                        사랑과 존중으로 마음을 치유하고<br>함께 성장하는 행복한 배움터
+                    </h1>
+                    <p id="hero-sub" class="text-base md:text-lg text-blue-100 mb-8 max-w-2xl mx-auto font-light break-keep">
+                        학생 개개인에게 최적화된 정신과적 치유와 소집단 정서 지지 프로그램을 통해 배움의 기쁨과 일상의 회복을 돕습니다.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <button onclick="showTab('admission')" class="bg-white text-blue-700 px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-blue-50 transition flex items-center space-x-2 text-sm">
+                            <span>위탁절차 및 서류 안내</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="showTab('gallery')" class="bg-blue-800/60 border border-blue-400/40 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-800 transition text-sm">
+                            수업·체험활동 이야기
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3대 핵심 카드 (구성 수정 가능) -->
+            <div class="max-w-6xl mx-auto px-4 -mt-8 relative z-20 mb-14">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div onclick="showTab('about')" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition cursor-pointer border border-slate-100">
+                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-3">
+                            <i data-lucide="book-open-check" class="w-6 h-6"></i>
+                        </div>
+                        <h3 id="card1-title" class="text-lg font-bold mb-1.5">맞춤형 치유 교육과정</h3>
+                        <p id="card1-desc" class="text-slate-600 text-sm">보통교과, 대안교과(제과제빵·공예), 치료교과(집단상담·미술심리·실용음악)의 균형 잡힌 운영</p>
+                    </div>
+                    <div onclick="showTab('admission')" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition cursor-pointer border border-slate-100">
+                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-3">
+                            <i data-lucide="file-check-2" class="w-6 h-6"></i>
+                        </div>
+                        <h3 id="card2-title" class="text-lg font-bold mb-1.5">위탁절차 및 양식 다운로드</h3>
+                        <p id="card2-desc" class="text-slate-600 text-sm">사전 상담부터 징검다리교실(적응교육), 정식 위탁까지의 절차 및 입학조사서 서식 다운로드</p>
+                    </div>
+                    <div onclick="showTab('schedule')" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition cursor-pointer border border-slate-100">
+                        <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mb-3">
+                            <i data-lucide="calendar-heart" class="w-6 h-6"></i>
+                        </div>
+                        <h3 id="card3-title" class="text-lg font-bold mb-1.5">월간 학사일정</h3>
+                        <p id="card3-desc" class="text-slate-600 text-sm">네이버 블로그에 공지되는 월별 최신 학사일정과 부평 본교 찾아오시는 길 안내</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 최근 블로그 이야기 -->
+            <div class="max-w-6xl mx-auto px-4 pb-12">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-slate-900">최근 학교 이야기</h2>
+                        <p class="text-slate-500 text-sm mt-0.5">네이버 블로그 및 홈페이지에 새로 올라온 소식을 전해드립니다.</p>
+                    </div>
+                    <button onclick="showTab('gallery')" class="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1">
+                        <span>전체보기</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div id="home-recent-posts" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </section>
+
+        <!-- ==================== 2. 학교소개 ==================== -->
+        <section id="about" class="tab-content max-w-5xl mx-auto px-4 py-12">
+            <h2 id="about-main-title" class="text-3xl font-extrabold text-slate-900 mb-8 pb-4 border-b">학교소개</h2>
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4 flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-5 h-5"></i> 설립목적 (2018년 개교)
+                    </h3>
+                    <ul id="about-goals-list" class="space-y-3 text-slate-700 text-sm leading-relaxed">
+                        <li>• 학생 개개인에게 최적화된 정신과적 진단 및 치료 제공</li>
+                        <li>• 소집단 중심의 정서적 지지 프로그램을 통한 사회성 향상</li>
+                        <li>• 자신에 대한 올바른 인식 및 적절한 자기표현과 강점 개발</li>
+                        <li>• 배움에 대한 긍정적인 태도 함양 및 사회적 단계에 맞는 진로교육</li>
+                        <li>• 가족을 치유하고 가정의 기능이 회복될 수 있도록 지원</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4 flex items-center gap-2">
+                        <i data-lucide="heart-handshake" class="w-5 h-5"></i> 학교 상징 (CI 의미)
+                    </h3>
+                    <div class="space-y-4 text-sm text-slate-700">
+                        <div class="p-3 bg-blue-50 rounded-xl"><strong class="text-blue-700">파란색 (Blue):</strong> <span id="about-ci-blue">정서적 안정과 차분한 마음</span></div>
+                        <div class="p-3 bg-slate-50 rounded-xl"><strong class="text-slate-800">십자가 (Cross):</strong> <span id="about-ci-cross">상처받은 마음과 정신의 치유</span></div>
+                        <div class="p-3 bg-rose-50 rounded-xl"><strong class="text-rose-600">하트 (Heart):</strong> <span id="about-ci-heart">사랑과 존중으로 학생들을 따뜻하게 보듬는 마음</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 mb-12">
+                <h3 class="text-xl font-bold text-slate-900 mb-6">교육과정 안내 (중·고 통합 3학급)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700">
+                                <th class="p-4 rounded-tl-xl w-1/4">구분</th>
+                                <th class="p-4 rounded-tr-xl">세부 교과 및 활동 내용</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="p-4 font-bold text-blue-700">보통교과</td>
+                                <td class="p-4">국어, 수학, 영어, 과학, 사회, 역사, 미술</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-emerald-700">대안교과</td>
+                                <td class="p-4">공예, 제과제빵, 체육, 실용연주Ⅰ</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-purple-700">치료교과</td>
+                                <td class="p-4">집단상담, 연극, 미술심리, 실용음악, 자기성장프로젝트</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold text-amber-700">창의적 체험활동</td>
+                                <td class="p-4">
+                                    • <strong>자율/봉사:</strong> 적응교육, 역사문학기행, 생태학습, 캠페인 활동<br>
+                                    • <strong>진로/동아리:</strong> 비전더하기(로이학교 연계), 문해력 향상(삼산도서관 연계), 보컬·댄스·힙합·바리스타·만능스포츠<br>
+                                    • <strong>특색사업:</strong> <span id="about-special-text">사제동행 음원 제작 프로젝트 (Vol.3 앨범 '별의 꿈', '학교 가는 길' 등 발매)</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 오시는 길 (구성 수정 가능) -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                <h3 class="text-xl font-bold text-slate-900 mb-4">오시는 길</h3>
+                <p class="text-slate-600 mb-4 text-sm">📍 <strong>주소:</strong> <span id="about-address-text">인천광역시 부평구 부흥로 329, 로얄프라자 2층 (운영주체: 인천바오로의원)</span></p>
+                <div class="grid md:grid-cols-2 gap-4 text-sm bg-slate-50 p-5 rounded-xl">
+                    <div>
+                        <strong class="text-blue-700 block mb-1">🚇 지하철 이용 시</strong>
+                        <div id="about-subway-text" class="leading-relaxed">
+                            • 인천 1호선 부평시장역 1번 출구 (도보 10분)<br>
+                            • 서울 7호선 굴포천역 3번 출구 (도보 15분)<br>
+                            • 1호선/인천1호선 부평역 21번 출구 (도보 15분)
+                        </div>
+                    </div>
+                    <div>
+                        <strong class="text-blue-700 block mb-1">🚌 버스 이용 시</strong>
+                        <div id="about-bus-text" class="leading-relaxed">
+                            • 부흥오거리(소망병원): 간선 10, 23, 24-1, 35, 45 / 지선 552, 555<br>
+                            • 부평성당: 지선 555, 565<br>
+                            • 나누리병원: 간선 10, 24-1, 35, 45 / 급행 905
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 3. 위탁절차 ==================== -->
+        <section id="admission" class="tab-content max-w-5xl mx-auto px-4 py-12">
+            <div><h2 id="admission-main-title" class="text-3xl font-extrabold text-slate-900">위탁절차 및 서류 안내</h2><p id="admission-main-desc" class="text-slate-600 text-sm mt-1 mb-8 pb-4 border-b">원적교 담임교사 협의 후 사전 상담 예약부터 적응교육 및 정식 위탁까지의 절차 안내</p></div>
+            <div class="grid md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+                    <span class="inline-block w-8 h-8 rounded-full bg-blue-600 text-white font-bold leading-8 mb-3">1</span>
+                    <h4 id="step1-title" class="font-bold mb-2">사전 상담 예약</h4>
+                    <p id="step1-desc" class="text-xs text-slate-600">전화(032-503-7080) 후 학생·학부모 본교 방문 상담</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+                    <span class="inline-block w-8 h-8 rounded-full bg-blue-600 text-white font-bold leading-8 mb-3">2</span>
+                    <h4 id="step2-title" class="font-bold mb-2">신청서류 접수</h4>
+                    <p id="step2-desc" class="text-xs text-slate-600">원적교 담임교사 협의 후 공문 및 위탁신청 서류 발송</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+                    <span class="inline-block w-8 h-8 rounded-full bg-blue-600 text-white font-bold leading-8 mb-3">3</span>
+                    <h4 id="step3-title" class="font-bold mb-2">적응교육 및 심의</h4>
+                    <p id="step3-desc" class="text-xs text-slate-600">징검다리교실(적응기간) 이수 및 위원회 수탁 심의</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center">
+                    <span class="inline-block w-8 h-8 rounded-full bg-blue-600 text-white font-bold leading-8 mb-3">4</span>
+                    <h4 id="step4-title" class="font-bold mb-2">위탁 승인 및 등교</h4>
+                    <p id="step4-desc" class="text-xs text-slate-600">원적교 결과 통보 후 마음더하기학교 정식 등교</p>
+                </div>
+            </div>
+
+            <div id="admission-blog-content" class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm mb-8"></div>
+        </section>
+
+        <!-- ==================== 4. 수업·행사활동 ==================== -->
+        <section id="gallery" class="tab-content max-w-6xl mx-auto px-4 py-12">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 pb-4 border-b">
+                <div>
+                    <h2 id="gallery-main-title" class="text-3xl font-extrabold text-slate-900">수업·행사활동</h2>
+                    <p id="gallery-main-desc" class="text-slate-500 text-sm mt-1">네이버 블로그와 홈페이지의 교과수업, 체험활동, 교내행사 이야기를 사진과 글 그대로 전해드립니다.</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center gap-3">
+                    <div class="relative">
+                        <input id="gallery-search" type="text" placeholder="제목/내용 검색…" oninput="onGallerySearch(this.value)"
+                            class="text-xs pl-8 pr-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 w-44">
+                        <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5"></i>
+                    </div>
+                    <span id="gallery-count" class="text-xs text-slate-500"></span>
+                </div>
+            </div>
+
+            <div id="gallery-filters" class="flex flex-wrap gap-2 mb-8"></div>
+            <div id="gallery-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            
+            <div id="gallery-more-wrap" class="mt-10 text-center hidden">
+                <button onclick="loadMoreGallery()" class="px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl text-sm font-semibold hover:bg-slate-50 shadow-sm">
+                    글 더보기 (<span id="gallery-more-count"></span>)
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== 5. 학교일정 (네이버 블로그 달력 양식 작성 지원) ==================== -->
+        <section id="schedule" class="tab-content max-w-5xl mx-auto px-4 py-12">
+            <div class="flex items-center justify-between mb-8 pb-4 border-b">
+                <div>
+                    <h2 id="schedule-main-title" class="text-3xl font-extrabold text-slate-900">월간 학사일정</h2>
+                    <p id="schedule-main-desc" class="text-slate-600 text-sm mt-1">마음더하기학교 월별 학사일정입니다. 클릭하면 세부 일정 달력을 확인하실 수 있습니다.</p>
+                </div>
+            </div>
+            
+            <div id="schedule-posts-list" class="space-y-4"></div>
+        </section>
+
+        <!-- ==================== 6. 마음더하기 광장 ==================== -->
+        <section id="community" class="tab-content max-w-5xl mx-auto px-4 py-12">
+            <div class="flex items-center justify-between mb-8 pb-4 border-b">
+                <div>
+                    <h2 id="community-main-title" class="text-3xl font-extrabold text-slate-900">마음더하기 광장</h2>
+                    <p id="community-main-desc" class="text-slate-600 text-sm mt-1">학부모 가정통신문, 학생들의 작품과 이야기, 교사 연구자료가 공유되는 공간입니다.</p>
+                </div>
+            </div>
+
+            <div id="community-boards" class="grid md:grid-cols-3 gap-4 mb-8"></div>
+
+            <div class="flex items-center justify-between mb-3">
+                <h3 id="community-title" class="font-bold text-lg text-slate-900"></h3>
+                <span id="community-count" class="text-xs text-slate-500"></span>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="hidden md:grid grid-cols-12 gap-2 px-5 py-3.5 bg-slate-50 text-xs font-semibold text-slate-500 border-b border-slate-200">
+                    <span class="col-span-1 text-center">번호</span>
+                    <span class="col-span-2">게시판</span>
+                    <span class="col-span-7">제목</span>
+                    <span class="col-span-2 text-center">작성일</span>
+                </div>
+                <ul id="community-list" class="divide-y divide-slate-100"></ul>
+            </div>
+        </section>
+
+        <!-- ==================== 7. 네이버 블로그 포스트 상세 뷰어 ==================== -->
+        <section id="post-view" class="tab-content max-w-3xl mx-auto px-4 py-10">
+            <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-200">
+                <button onclick="backFromPostView()" class="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-blue-600 transition bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-sm">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    <span>목록으로</span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <a id="post-naver-link" href="#" target="_blank" rel="noopener" class="text-xs text-emerald-700 bg-emerald-50 px-3 py-2 rounded-xl hover:bg-emerald-100 transition border border-emerald-200 font-medium flex items-center gap-1">
+                        <span>블로그 원문</span>
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+            </div>
+
+            <article class="bg-white rounded-3xl border border-slate-200 shadow-sm p-4 sm:p-8 mb-8">
+                <header class="pb-8 mb-8 border-b border-slate-100 max-w-[733px] mx-auto text-left">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span id="pv-category" class="text-xs font-bold text-emerald-700 tracking-tight"></span>
+                        <span class="text-slate-300">|</span>
+                        <span class="text-xs text-slate-400">마음더하기학교 공식 블로그 소식</span>
+                    </div>
+                    <h1 id="pv-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-snug break-keep"></h1>
+                    <div class="flex items-center gap-3 text-xs text-slate-400 mt-4">
+                        <span id="pv-author" class="font-bold text-slate-700">마음더하기학교</span>
+                        <span>·</span>
+                        <span id="pv-date"></span>
+                        <span id="pv-custom-badge" class="hidden text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">홈페이지 직접 작성</span>
+                    </div>
+                </header>
+
+                <div id="pv-body" class="se-post-content"></div>
+            </article>
+
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden mb-8 text-sm">
+                <div id="pv-prev-wrap" class="p-4 border-b border-slate-100 flex items-center justify-between hover:bg-slate-50 cursor-pointer">
+                    <span class="text-xs text-slate-400 flex items-center gap-1"><i data-lucide="chevron-up" class="w-3.5 h-3.5"></i> 이전글</span>
+                    <span id="pv-prev-title" class="font-medium text-slate-800 truncate ml-4 flex-grow text-right"></span>
+                </div>
+                <div id="pv-next-wrap" class="p-4 flex items-center justify-between hover:bg-slate-50 cursor-pointer">
+                    <span class="text-xs text-slate-400 flex items-center gap-1"><i data-lucide="chevron-down" class="w-3.5 h-3.5"></i> 다음글</span>
+                    <span id="pv-next-title" class="font-medium text-slate-800 truncate ml-4 flex-grow text-right"></span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                <h4 class="font-bold text-sm text-slate-900 mb-4 flex items-center justify-between">
+                    <span>'<span id="pv-cat-name"></span>' 카테고리의 다른 글</span>
+                    <span id="pv-cat-count" class="text-xs font-normal text-slate-400"></span>
+                </h4>
+                <ul id="pv-cat-list" class="divide-y divide-slate-100 text-sm"></ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- [하단 푸터] -->
+    <footer class="bg-slate-900 text-slate-400 py-10 px-4 text-sm mt-16">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <span id="footer-school-name" class="text-white font-bold text-base block mb-1">마음더하기학교 (운영주체: 인천바오로의원)</span>
+                <p id="footer-address">인천광역시 부평구 부흥로 329, 로얄프라자 2층 (부평동) | 개교연도: 2018년</p>
+                <p id="footer-contact">전화: 032-503-7080 | 팩스: 032-503-7087 | 이메일: mdlove503@naver.com</p>
+                <div class="mt-2 flex gap-3 text-xs text-slate-400">
+                    <a href="https://blog.naver.com/mdlove503" target="_blank" rel="noopener" class="text-emerald-400 hover:underline">네이버 블로그</a>
+                </div>
+            </div>
+            <div id="footer-copyright" class="text-xs text-slate-500">
+                © 2026 마음더하기학교. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- 1) 네이버 블로그 동기화 데이터 -->
+    <script src="blog-data.js"></script>
+    <!-- 2) 홈페이지 파일 작성 데이터 -->
+    <script src="posts.js"></script>
+
+    <script>
+        // [핵심] 외부 CDN(Lucide 등) 차단 환경에서도 절대 멈추지 않는 안전 아이콘 렌더러
+        function safeIcons() {
+            try {
+                if (typeof lucide !== 'undefined' && lucide && typeof lucide.createIcons === 'function') {
+                    lucide.createIcons();
+                }
+            } catch (err) {
+                // CDN 미로드 시에도 기능 유지
+            }
+        }
+
+        let currentTab = 'home';
+        let previousTab = 'home';
+
+        // ==================== 탭 전환 및 네비게이션 제어 ====================
+        function showTab(tabId) {
+            if (!tabId) return;
+
+            // 상세 보기(post-view)가 아니면 직전 탭으로 기억
+            if (currentTab !== 'post-view') {
+                previousTab = currentTab;
+            }
+            currentTab = tabId;
+
+            // 모든 탭 섹션 숨김 후 대상 탭 표시
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(t => t.classList.remove('active'));
+
+            const target = document.getElementById(tabId);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            // 데스크탑 상단 네비게이션 활성 스타일 업데이트
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                const btnTab = btn.getAttribute('data-tab');
+                if (btnTab === tabId) {
+                    btn.className = 'nav-btn px-3 py-2 rounded-lg bg-blue-600 text-white font-bold shadow-sm transition';
+                } else {
+                    btn.className = 'nav-btn px-3 py-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition';
+                }
+            });
+
+            // 각 탭별 최신 렌더링 동기화
+            if (tabId === 'schedule') {
+                renderSchedule();
+            } else if (tabId === 'gallery') {
+                renderGallery();
+            } else if (tabId === 'community') {
+                renderCommunity();
+            } else if (tabId === 'home') {
+                renderHomeRecent();
+            }
+
+            // 모바일 메뉴 열려있으면 닫기
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+
+            if (window.lucide) {
+                safeIcons();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 모바일 메뉴 토글
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('hidden');
+            }
+        }
+        let allPosts = [];
+        let galleryFilter = '전체';
+        let gallerySearch = '';
+        let galleryPage = 1;
+        const GALLERY_PAGE_SIZE = 12;
+
+
+        // 기본 홈페이지 구성 데이터
+        const DEFAULT_SITE_CONFIG = {
+            // 1. 기본 학교 정보 & 푸터
+            schoolName: '마음더하기학교',
+            schoolSub: '인천시교육청 지정 치유형 위탁교육기관',
+            phone: '032-503-7080',
+            email: 'mdlove503@naver.com',
+            fax: '032-503-7087',
+            footerText: '개교연도: 2018년 | 중·고등학교 통합과정 치유형 대안학교',
+
+            // 2. 홈 화면 슬로건 & 3대 카드
+            heroBadge: '중·고등학교 통합과정 치유형 대안학교 (운영주체: 인천바오로의원)',
+            heroTitle: '사랑과 존중으로 마음을 치유하고\n함께 성장하는 행복한 배움터',
+            heroSub: '학생 개개인에게 최적화된 정신과적 치유와 소집단 정서 지지 프로그램을 통해 배움의 기쁨과 일상의 회복을 돕습니다.',
+            card1Title: '맞춤형 치유 교육과정',
+            card1Desc: '보통교과, 대안교과(제과제빵·공예), 치료교과(집단상담·미술심리·실용음악)의 균형 잡힌 운영',
+            card2Title: '위탁절차 및 양식 다운로드',
+            card2Desc: '사전 상담부터 징검다리교실(적응교육), 정식 위탁까지의 절차 및 입학조사서 서식 다운로드',
+            card3Title: '월간 학사일정',
+            card3Desc: '네이버 블로그에 공지되는 월별 최신 학사일정과 부평 본교 찾아오시는 길 안내',
+
+            // 3. 학교소개 탭
+            aboutTitle: '학교소개',
+            aboutGoals: '• 학생 개개인에게 최적화된 정신과적 진단 및 치료 제공\n• 소집단 중심의 정서적 지지 프로그램을 통한 사회성 향상\n• 자신에 대한 올바른 인식 및 적절한 자기표현과 강점 개발\n• 배움에 대한 긍정적인 태도 함양 및 사회적 단계에 맞는 진로교육\n• 가족을 치유하고 가정의 기능이 회복될 수 있도록 지원',
+            aboutCiBlue: '정서적 안정과 차분한 마음',
+            aboutCiCross: '상처받은 마음과 정신의 치유',
+            aboutCiHeart: '사랑과 존중으로 학생들을 따뜻하게 보듬는 마음',
+            aboutSpecial: '사제동행 음원 제작 프로젝트 (Vol.3 앨범 \'별의 꿈\', \'학교 가는 길\' 등 발매)',
+            address: '인천광역시 부평구 부흥로 329, 로얄프라자 2층 (운영주체: 인천바오로의원)',
+            subway: '• 인천 1호선 부평시장역 1번 출구 (도보 10분)\n• 서울 7호선 굴포천역 3번 출구 (도보 15분)\n• 1호선/인천1호선 부평역 21번 출구 (도보 15분)',
+            bus: '• 부흥오거리(소망병원): 간선 10, 23, 24-1, 35, 45 / 지선 552, 555\n• 부평성당: 지선 555, 565\n• 나누리병원: 간선 10, 24-1, 35, 45 / 급행 905',
+
+            // 4. 위탁절차 탭
+            admissionTitle: '위탁절차 및 서류 안내',
+            admissionDesc: '원적교 담임교사 협의 후 사전 상담 예약부터 적응교육 및 정식 위탁까지의 절차 안내',
+            step1Title: '사전 상담 예약',
+            step1Desc: '전화(032-503-7080) 후 학생·학부모 본교 방문 상담',
+            step2Title: '신청서류 접수',
+            step2Desc: '원적교 담임교사 협의 후 공문 및 위탁신청 서류 발송',
+            step3Title: '적응교육 및 심의',
+            step3Desc: '징검다리교실(적응기간) 이수 및 위원회 수탁 심의',
+            step4Title: '위탁 승인 및 등교',
+            step4Desc: '원적교 결과 통보 후 마음더하기학교 정식 등교',
+            admissionNoticeTitle: '** 필수) 입학조사서 관련 유의사항 **',
+            admissionItem1Text: '1. <입학조사서>는 아래의 양식 사용해 주세요.',
+            admissionYearBadge: '2026 최신 서식',
+            admissionBoxTitle: '마음더하기학교 입학(위탁)조사서 양식 다운로드',
+            admissionParentFileUrl: 'files/마음더하기_입학조사서_학부모용(2026).hwp',
+            admissionParentFileName: '마음더하기_입학조사서_학부모용(2026).hwp',
+            admissionParentFileSize: '한글 HWP (75 KB)',
+            admissionParentFileDesc: '보호자께서 작성하시는 학생 기본 인적사항, 성장 배경 및 위탁 신청 사유 서식',
+            admissionStudentFileUrl: 'files/마음더하기_입학조사서_학생용(2026).hwp',
+            admissionStudentFileName: '마음더하기_입학조사서_학생용(2026).hwp',
+            admissionStudentFileSize: '한글 HWP (143 KB)',
+            admissionStudentFileDesc: '위탁 희망 학생 본인이 직접 작성하는 자기소개, 학교생활 희망사항 및 기초 설문 서식',
+            admissionNotes: "2. <입학조사서> 작성 시, 3장부터는 개인정보활용에 대한 동의가 필요합니다.\n작성하신 <입학조사서>는 오직 위탁 여부에 필요한 학생 이해 자료로만 사용되며\n위탁 취소 시, 파기 처리됨을 알려드립니다.\n\n3. 메일 제목은 \"[위탁신청] OO학교 김OO\"으로 작성해 주시고,\n메일 발송 후 마음더하기학교로 확인 전화 부탁드립니다.\n\n4. 2026학년도 <입학조사서>는 3월 3일 (화)부터 발송해주신 순번대로 면담을 진행하며,\n면담 일정은 개별적으로 안내드립니다.\n\n*****필독 사항) 작년 면담지를 사용하실 경우 위탁 신청에 불이익이 있을 수 있으니\n파일명을 반드시 확인해주시기 바랍니다.\n또한, 모든 서류는 반드시 본인이 자필로 작성해주시고\n(대필하지 마세요.)\n올바르게 스캔하여 보내주신 서류 또는 직접 제출한 서류만 접수되니\n유의해주시기 바랍니다.\n\n학교 메일 주소: mdlove503@naver.com\n\n문의사항 : 032-503-7080~4",
+
+            // 5. 수업·행사활동 탭
+            galleryTitle: '수업·행사활동',
+            galleryDesc: '네이버 블로그와 홈페이지의 교과수업, 체험활동, 교내행사 이야기를 사진과 글 그대로 전해드립니다.',
+
+            // 6. 월간 학사일정 탭
+            scheduleTitle: '월간 학사일정',
+            scheduleDesc: '마음더하기학교 월별 학사일정입니다. 클릭하면 세부 일정 달력을 확인하실 수 있습니다.',
+
+            // 7. 마음더하기 광장 탭
+            communityTitle: '마음더하기 광장',
+            communityDesc: '학부모 가정통신문, 학생들의 작품과 이야기, 교사 연구자료가 공유되는 공간입니다.'
+        };
+
+        function getSiteConfig() {
+            return DEFAULT_SITE_CONFIG;
+        }
+
+        function applySiteConfig() {
+            const c = getSiteConfig();
+
+            // 상단 헤더 & 브라우저 타이틀
+            if (document.getElementById('nav-school-name')) document.getElementById('nav-school-name').textContent = c.schoolName;
+            if (document.getElementById('nav-school-sub')) document.getElementById('nav-school-sub').textContent = c.schoolSub;
+            if (document.getElementById('nav-phone-text')) document.getElementById('nav-phone-text').textContent = c.phone;
+            if (document.getElementById('nav-phone-link')) document.getElementById('nav-phone-link').href = 'tel:' + c.phone;
+            if (document.getElementById('site-head-title')) document.getElementById('site-head-title').textContent = `${c.schoolName} | ${c.schoolSub}`;
+
+            // 1. 홈 화면 슬로건 & 3대 카드
+            if (document.getElementById('hero-badge')) document.getElementById('hero-badge').textContent = c.heroBadge;
+            if (document.getElementById('hero-title')) document.getElementById('hero-title').innerHTML = escapeHtml(c.heroTitle).replace(/\n/g, '<br>');
+            if (document.getElementById('hero-sub')) document.getElementById('hero-sub').textContent = c.heroSub;
+
+            if (document.getElementById('card1-title')) document.getElementById('card1-title').textContent = c.card1Title;
+            if (document.getElementById('card1-desc')) document.getElementById('card1-desc').textContent = c.card1Desc;
+            if (document.getElementById('card2-title')) document.getElementById('card2-title').textContent = c.card2Title;
+            if (document.getElementById('card2-desc')) document.getElementById('card2-desc').textContent = c.card2Desc;
+            if (document.getElementById('card3-title')) document.getElementById('card3-title').textContent = c.card3Title;
+            if (document.getElementById('card3-desc')) document.getElementById('card3-desc').textContent = c.card3Desc;
+
+            // 2. 학교소개 탭
+            if (document.getElementById('about-main-title')) document.getElementById('about-main-title').textContent = c.aboutTitle || '학교소개';
+            if (document.getElementById('about-goals-list')) {
+                const goalsLines = (c.aboutGoals || '').split('\n').filter(l => l.trim().length > 0);
+                document.getElementById('about-goals-list').innerHTML = goalsLines.map(line => {
+                    const clean = line.replace(/^[•\-\*s]+/, '').trim();
+                    return `<li>• ${escapeHtml(clean)}</li>`;
+                }).join('');
+            }
+            if (document.getElementById('about-ci-blue')) document.getElementById('about-ci-blue').textContent = c.aboutCiBlue;
+            if (document.getElementById('about-ci-cross')) document.getElementById('about-ci-cross').textContent = c.aboutCiCross;
+            if (document.getElementById('about-ci-heart')) document.getElementById('about-ci-heart').textContent = c.aboutCiHeart;
+            if (document.getElementById('about-special-text')) document.getElementById('about-special-text').textContent = c.aboutSpecial;
+
+            if (document.getElementById('about-address-text')) document.getElementById('about-address-text').textContent = c.address;
+            if (document.getElementById('about-subway-text')) document.getElementById('about-subway-text').innerHTML = escapeHtml(c.subway).replace(/\n/g, '<br>');
+            if (document.getElementById('about-bus-text')) document.getElementById('about-bus-text').innerHTML = escapeHtml(c.bus).replace(/\n/g, '<br>');
+
+            // 3. 위탁절차 탭
+            if (document.getElementById('admission-main-title')) document.getElementById('admission-main-title').textContent = c.admissionTitle;
+            if (document.getElementById('admission-main-desc')) document.getElementById('admission-main-desc').textContent = c.admissionDesc;
+            if (document.getElementById('step1-title')) document.getElementById('step1-title').textContent = c.step1Title;
+            if (document.getElementById('step1-desc')) document.getElementById('step1-desc').textContent = c.step1Desc;
+            if (document.getElementById('step2-title')) document.getElementById('step2-title').textContent = c.step2Title;
+            if (document.getElementById('step2-desc')) document.getElementById('step2-desc').textContent = c.step2Desc;
+            if (document.getElementById('step3-title')) document.getElementById('step3-title').textContent = c.step3Title;
+            if (document.getElementById('step3-desc')) document.getElementById('step3-desc').textContent = c.step3Desc;
+            if (document.getElementById('step4-title')) document.getElementById('step4-title').textContent = c.step4Title;
+            if (document.getElementById('step4-desc')) document.getElementById('step4-desc').textContent = c.step4Desc;
+            renderAdmissionContent();
+
+            // 4. 수업·행사활동 탭
+            if (document.getElementById('gallery-main-title')) document.getElementById('gallery-main-title').textContent = c.galleryTitle;
+            if (document.getElementById('gallery-main-desc')) document.getElementById('gallery-main-desc').textContent = c.galleryDesc;
+
+            // 5. 월간 학사일정 탭
+            if (document.getElementById('schedule-main-title')) document.getElementById('schedule-main-title').textContent = c.scheduleTitle;
+            if (document.getElementById('schedule-main-desc')) document.getElementById('schedule-main-desc').textContent = c.scheduleDesc;
+
+            // 6. 마음더하기 광장 탭
+            if (document.getElementById('community-main-title')) document.getElementById('community-main-title').textContent = c.communityTitle;
+            if (document.getElementById('community-main-desc')) document.getElementById('community-main-desc').textContent = c.communityDesc;
+
+            // 7. 푸터 영역
+            if (document.getElementById('footer-school-name')) document.getElementById('footer-school-name').textContent = c.schoolName + ' (운영주체: 인천바오로의원)';
+            if (document.getElementById('footer-address')) document.getElementById('footer-address').textContent = c.address + ' | ' + (c.footerText || '개교연도: 2018년');
+            if (document.getElementById('footer-contact')) document.getElementById('footer-contact').textContent = `전화: ${c.phone} | 팩스: ${c.fax} | 이메일: ${c.email}`;
+        }
+
+        // ---------- 에디터 모달 내부 탭 전환 ----------
+        function convertDriveUrl(src = '') {
+            if (!src) return '';
+            if (src.startsWith('data:')) return src;
+            const m = String(src).match(/\/d\/([\w-]{10,})/) || String(src).match(/[?&]id=([\w-]{10,})/);
+            if (m) return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1600`;
+            return src;
+        }
+
+        // ---------- 상세 뷰어 및 포스트 렌더링 ----------
+        function viewPost(postId) {
+            const post = allPosts.find(p => String(p.id) === String(postId));
+            if (!post) return;
+
+            document.getElementById('pv-category').textContent = post.cat || '소식';
+            document.getElementById('pv-title').textContent = post.title;
+            document.getElementById('pv-author').textContent = post.author || '마음더하기학교';
+            document.getElementById('pv-date').textContent = post.date || '';
+            document.getElementById('pv-cat-name').textContent = post.cat || '소식';
+
+            const customBadge = document.getElementById('pv-custom-badge');
+            if (post.isCustom) customBadge.classList.remove('hidden');
+            else customBadge.classList.add('hidden');
+
+            const naverLink = document.getElementById('post-naver-link');
+            if (post.id && !post.isCustom && !String(post.id).startsWith('custom_') && !String(post.id).startsWith('file_') && !String(post.id).startsWith('cal_')) {
+                naverLink.href = `https://blog.naver.com/mdlove503/${post.id}`;
+                naverLink.classList.remove('hidden');
+            } else {
+                naverLink.classList.add('hidden');
+            }
+
+            document.getElementById('pv-body').innerHTML = renderPostBlocks(post.blocks || []);
+
+            const sameCatPosts = allPosts.filter(p => p.cat === post.cat);
+            const idx = sameCatPosts.findIndex(p => String(p.id) === String(post.id));
+            const prev = idx > 0 ? sameCatPosts[idx - 1] : null;
+            const next = idx < sameCatPosts.length - 1 ? sameCatPosts[idx + 1] : null;
+
+            const prevWrap = document.getElementById('pv-prev-wrap');
+            if (prev) {
+                prevWrap.classList.remove('hidden');
+                document.getElementById('pv-prev-title').textContent = prev.title;
+                prevWrap.onclick = () => viewPost(prev.id);
+            } else {
+                prevWrap.classList.add('hidden');
+            }
+
+            const nextWrap = document.getElementById('pv-next-wrap');
+            if (next) {
+                nextWrap.classList.remove('hidden');
+                document.getElementById('pv-next-title').textContent = next.title;
+                nextWrap.onclick = () => viewPost(next.id);
+            } else {
+                nextWrap.classList.add('hidden');
+            }
+
+            const related = sameCatPosts.filter(p => String(p.id) !== String(post.id)).slice(0, 5);
+            document.getElementById('pv-cat-count').textContent = `총 ${sameCatPosts.length}개`;
+            document.getElementById('pv-cat-list').innerHTML = related.map(p => `
+                <li onclick="viewPost('${p.id}')" class="py-2.5 flex items-center justify-between cursor-pointer hover:text-blue-600 transition">
+                    <span class="truncate pr-4">• ${escapeHtml(p.title)}</span>
+                    <span class="text-xs text-slate-400 shrink-0">${p.date || ''}</span>
+                </li>
+            `).join('') || '<li class="py-3 text-slate-400 text-xs">다른 글이 없습니다.</li>';
+
+            showTab('post-view');
+        }
+
+        function backFromPostView() {
+            showTab(previousTab === 'post-view' ? 'gallery' : previousTab);
+        }
+
+        function renderPostBlocks(blocks) {
+            if (!blocks || !blocks.length) return '<p class="text-slate-400 text-center py-10">내용이 없습니다.</p>';
+
+            return blocks.map(b => {
+                // [신규] 네이버 블로그 문단별 정렬(중앙/좌측) 및 글자 크기 100% 보존 렌더링
+                if (b.t === 'paragraphs') {
+                    const parasHtml = (b.paras || []).map(p => {
+                        const alignClass = p.align === 'center' ? 'text-center' : (p.align === 'right' ? 'text-right' : 'text-left');
+                        const sizeClass = 'se-fs-' + (p.size || 'fs13');
+                        if (!p.text) {
+                            return '<p class="se-empty-line"></p>'; // 일관된 빈 줄 여백
+                        }
+                        return `<p class="${alignClass} ${sizeClass}">${escapeHtml(p.text)}</p>`;
+                    }).join('');
+                    return `<div class="se-text-block">${parasHtml}</div>`;
+                }
+
+                if (b.t === 'text') {
+                    const alignClass = b.align === 'center' ? 'text-center' : 'text-left';
+                    return `<p class="${alignClass}">${escapeHtml(b.v)}</p>`;
+                }
+
+                if (b.t === 'quote') {
+                    const style = b.style || 'underline';
+                    const textHtml = escapeHtml(b.text || '').replace(/\n/g, '<br>');
+                    const citeHtml = b.cite ? `<div class="se-quote-cite">- ${escapeHtml(b.cite)}</div>` : '';
+
+                    if (style === 'quotes') {
+                        return `<div class="my-8 text-center py-6 px-4 max-w-xl mx-auto">
+                            <div class="text-4xl sm:text-5xl text-emerald-600 font-serif font-black leading-none mb-3 select-none">“</div>
+                            <div class="font-extrabold text-lg sm:text-xl text-slate-900 leading-relaxed tracking-tight">${textHtml}</div>
+                            <div class="text-4xl sm:text-5xl text-emerald-600 font-serif font-black leading-none mt-3 select-none">”</div>
+                            ${citeHtml}
+                        </div>`;
+                    }
+                    if (style === 'line') {
+                        return `<div class="my-8 pl-4 sm:pl-5 border-l-4 border-emerald-500 py-1 bg-gradient-to-r from-emerald-50/40 to-transparent">
+                            <div class="font-bold text-base sm:text-lg text-slate-900 leading-relaxed">${textHtml}</div>
+                            ${citeHtml}
+                        </div>`;
+                    }
+                    if (style === 'box') {
+                        return `<div class="my-8 p-5 sm:p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                            <div class="font-bold text-base sm:text-lg text-slate-900 leading-relaxed">${textHtml}</div>
+                            ${citeHtml}
+                        </div>`;
+                    }
+                    // 네이버 밑줄형 (상단 따옴표 아이콘 + 하단 포인트 밑줄선)
+                    return `<div class="se-quote-underline">
+                        <div class="se-quote-title">${textHtml}</div>
+                        ${citeHtml}
+                    </div>`;
+                }
+                if (b.t === 'sticker') {
+                    return `<div class="text-center"><img src="${b.v}" alt="네이버 스티커" referrerpolicy="no-referrer" class="se-sticker-img"></div>`;
+                }
+                if (b.t === 'img') {
+                    const src = convertDriveUrl(b.v);
+                    return `<div><img src="${escapeHtml(src)}" alt="활동 사진" loading="lazy" referrerpolicy="no-referrer" onclick="openLightbox('${escapeHtml(src)}')" class="se-single-img cursor-pointer hover:opacity-95 transition"></div>`;
+                }
+                if (b.t === 'image_group') {
+                    const imgs = b.images || [];
+                    const meta = b.meta || [];
+                    const layout = b.layout || 'col-2';
+
+                    // [방식 A] 가로·세로 사진의 종횡비(W/H)를 계산하여 높이를 동일하게 맞추고,
+                    // 네이버 공식 4px 초밀착 간격으로 단일 사진과 동일한 상하 여백을 유지
+                    const groupImgsHtml = imgs.map((imgSrc, imgIdx) => {
+                        const cleanSrc = convertDriveUrl(imgSrc);
+                        const m = meta[imgIdx] || {};
+                        const ratio = (m.w && m.h) ? (m.w / m.h) : (layout === 'col-3' ? 1 : 1.33);
+                        const flexStyle = `flex: ${ratio} 1 0%; min-width: 0;`;
+
+                        return `<div style="${flexStyle}" class="se-image-group-item" onclick="openLightbox('${escapeHtml(cleanSrc)}')">
+                            <img src="${escapeHtml(cleanSrc)}" alt="모아보기 사진" loading="lazy" referrerpolicy="no-referrer">
+                        </div>`;
+                    }).join('');
+
+                    if (layout === 'grid-4') {
+                        return `<div class="se-image-group-container">
+                            <div class="grid grid-cols-2 gap-1 w-full">
+                                ${groupImgsHtml}
+                            </div>
+                        </div>`;
+                    }
+
+                    return `<div class="se-image-group-container">
+                        <div class="se-image-group-row">
+                            ${groupImgsHtml}
+                        </div>
+                    </div>`;
+                }
+                if (b.t === 'table') {
+                    const rowsHtml = (b.rows || []).map(r => `<tr>${r.map(c => `<td colspan="${c.cs || 1}" rowspan="${c.rs || 1}" style="${c.bg ? 'background-color:' + c.bg : ''}">${escapeHtml(c.v).replace(/\n/g, '<br>')}</td>`).join('')}</tr>`).join('');
+                    return `<div class="overflow-x-auto my-6"><table class="se-table">${rowsHtml}</table></div>`;
+                }
+                if (b.t === 'file') {
+                    return `<div class="my-6 p-4 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0"><i data-lucide="file-text" class="w-5 h-5"></i></div>
+                            <span class="font-medium text-sm text-slate-800 truncate">${escapeHtml(b.name)}</span>
+                        </div>
+                        <a href="${escapeHtml(b.url)}" target="_blank" rel="noopener" class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2.5 rounded-xl font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i><span>파일 다운로드</span>
+                        </a>
+                    </div>`;
+                }
+                if (b.t === 'hr') return '<hr class="my-8 border-slate-200">';
+                if (b.t === 'link') return `<div class="my-4"><a href="${escapeHtml(b.url)}" target="_blank" rel="noopener" class="text-blue-600 hover:underline text-sm flex items-center gap-1">🔗 ${escapeHtml(b.title || b.url)}</a></div>`;
+                return '';
+            }).join('');
+        }
+
+        function initData() {
+            const blogPosts = (typeof BLOG_DATA !== 'undefined' && BLOG_DATA.posts) ? BLOG_DATA.posts : [];
+            const fileGallery = (typeof GALLERY_POSTS !== 'undefined') ? GALLERY_POSTS : [];
+            const fileComm = (typeof COMMUNITY_POSTS !== 'undefined') ? COMMUNITY_POSTS : [];
+
+            const fileCustom = [
+                ...fileGallery.map(p => ({
+                    id: 'file_' + p.id,
+                    cat: p.category || '체험활동',
+                    title: p.title,
+                    date: p.date,
+                    author: p.author || '마음더하기학교',
+                    summary: p.content ? p.content.slice(0, 150) : '',
+                    thumb: (p.images && p.images[0]) || '',
+                    blocks: [
+                        ...(p.images || []).map(img => ({ t: 'img', v: convertDriveUrl(img) })),
+                        { t: 'text', v: p.content || '' }
+                    ],
+                    isCustom: true
+                })),
+                ...fileComm.map(p => ({
+                    id: 'file_' + p.id,
+                    cat: (p.board ? p.board + '게시판' : '학부모게시판'),
+                    title: p.title,
+                    date: p.date,
+                    author: p.author || '행정실',
+                    summary: p.content ? p.content.slice(0, 150) : '',
+                    thumb: (p.images && p.images[0]) || '',
+                    blocks: [
+                        ...(p.images || []).map(img => ({ t: 'img', v: convertDriveUrl(img) })),
+                        { t: 'text', v: p.content || '' },
+                        ...(p.files || []).map(f => ({ t: 'file', name: f.name, url: f.url }))
+                    ],
+                    pinned: !!p.pinned,
+                    isCustom: true
+                }))
+            ];
+
+            allPosts = [...fileCustom, ...blogPosts];
+            allPosts.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || String(b.date).localeCompare(String(a.date)));
+        }
+
+        function renderHomeRecent() {
+            const galleryPosts = allPosts.filter(p => ['교과수업', '체험활동', '교내행사'].includes(p.cat)).slice(0, 6);
+            const container = document.getElementById('home-recent-posts');
+            if (!container) return;
+            container.innerHTML = galleryPosts.map(p => renderCardHtml(p)).join('');
+            safeIcons();
+        }
+
+        const GALLERY_CATS = ['전체', '교과수업', '체험활동', '교내행사'];
+
+        function setGalleryCategory(cat) {
+            galleryFilter = cat;
+            galleryPage = 1;
+            renderGallery();
+        }
+
+        function onGallerySearch(q) {
+            gallerySearch = q.trim().toLowerCase();
+            galleryPage = 1;
+            renderGallery();
+        }
+
+        function loadMoreGallery() {
+            galleryPage++;
+            renderGallery(true);
+        }
+
+        function renderGallery(isAppend = false) {
+            document.getElementById('gallery-filters').innerHTML = GALLERY_CATS.map(c => {
+                const count = c === '전체'
+                    ? allPosts.filter(p => ['교과수업', '체험활동', '교내행사'].includes(p.cat)).length
+                    : allPosts.filter(p => p.cat === c).length;
+                const active = c === galleryFilter;
+                return `<button onclick="setGalleryCategory('${c}')" class="px-4 py-2 rounded-full text-xs font-semibold transition border ${active ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white text-slate-600 border-slate-200 hover:border-blue-300'}">
+                    ${c} <span class="ml-1 opacity-75">${count}</span>
+                </button>`;
+            }).join('');
+
+            let filtered = allPosts.filter(p => {
+                const isGalleryCat = ['교과수업', '체험활동', '교내행사'].includes(p.cat);
+                if (!isGalleryCat) return false;
+                if (galleryFilter !== '전체' && p.cat !== galleryFilter) return false;
+                if (gallerySearch && !p.title.toLowerCase().includes(gallerySearch) && !p.summary.toLowerCase().includes(gallerySearch)) return false;
+                return true;
+            });
+
+            document.getElementById('gallery-count').textContent = `총 ${filtered.length}개의 이야기`;
+
+            const currentSlice = filtered.slice(0, galleryPage * GALLERY_PAGE_SIZE);
+            const listEl = document.getElementById('gallery-list');
+            listEl.innerHTML = currentSlice.map(p => renderCardHtml(p)).join('') || '<div class="col-span-full text-center py-20 text-slate-400">등록된 게시글이 없습니다.</div>';
+
+            const moreWrap = document.getElementById('gallery-more-wrap');
+            if (filtered.length > currentSlice.length) {
+                moreWrap.classList.remove('hidden');
+                document.getElementById('gallery-more-count').textContent = `${currentSlice.length} / ${filtered.length}`;
+            } else {
+                moreWrap.classList.add('hidden');
+            }
+
+            safeIcons();
+        }
+
+        function renderCardHtml(p) {
+            const thumbUrl = p.thumb || 'https://blogfiles.pstatic.net/20220412_145/mdlove503_1649724427919iZURM_PNG/image.png';
+            const catBadge = p.cat === '교과수업' ? 'bg-slate-900 text-white' : (p.cat === '체험활동' ? 'bg-blue-600 text-white' : 'bg-indigo-600 text-white');
+            return `
+                <article onclick="viewPost('${p.id}')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer flex flex-col relative">
+                    ${p.pinned ? '<span class="absolute top-3 right-3 z-10 bg-amber-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full shadow">📌 공지</span>' : ''}
+                    <div class="relative aspect-[16/10] bg-slate-100 overflow-hidden">
+                        <img src="${escapeHtml(thumbUrl)}" alt="${escapeHtml(p.title)}" loading="lazy" referrerpolicy="no-referrer"
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 left-3 text-xs font-bold px-2.5 py-1 rounded-full shadow ${catBadge}">${escapeHtml(p.cat)}</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="font-bold text-base text-slate-900 mb-2 line-clamp-2 group-hover:text-blue-700 transition">${escapeHtml(p.title)}</h3>
+                        <p class="text-xs text-slate-500 line-clamp-3 mb-4 leading-relaxed flex-grow">${escapeHtml(p.summary || '')}</p>
+                        <div class="text-[11px] text-slate-400 flex justify-between pt-3 border-t border-slate-100">
+                            <span>${escapeHtml(p.author || '마음더하기학교')}</span>
+                            <span>${p.date || ''}</span>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        function renderSchedule() {
+            const schedulePosts = allPosts.filter(p => p.cat === '학교일정');
+            const container = document.getElementById('schedule-posts-list');
+            if (!container) return;
+
+            container.innerHTML = schedulePosts.map(p => `
+                <div onclick="viewPost('${p.id}')" class="bg-white p-5 rounded-2xl border border-slate-200 hover:border-amber-500 hover:shadow-md transition cursor-pointer flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-4 min-w-0">
+                        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                            <i data-lucide="calendar" class="w-6 h-6"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="font-bold text-base text-slate-900 truncate">${escapeHtml(p.title)}</h4>
+                            <p class="text-xs text-slate-500 mt-0.5 truncate">${escapeHtml(p.summary || '클릭하여 세부 학사일정 달력을 확인하세요.')}</p>
+                        </div>
+                    </div>
+                    <div class="shrink-0 flex items-center gap-3">
+                        <span class="text-xs text-slate-400">${p.date || ''}</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                    </div>
+                </div>
+            `).join('') || '<div class="text-center py-12 text-slate-400">등록된 학사일정이 없습니다.</div>';
+
+            safeIcons();
+        }
+
+        let communityFilter = '전체';
+        function setCommunityBoard(board) {
+            communityFilter = board;
+            renderCommunity();
+        }
+
+        function renderCommunity() {
+            const boards = [
+                { key: '전체', name: '전체 글', badge: 'bg-slate-100 text-slate-700' },
+                { key: '학부모게시판', name: '학부모게시판', badge: 'bg-blue-50 text-blue-700' },
+                { key: '학생게시판', name: '학생게시판', badge: 'bg-emerald-50 text-emerald-700' },
+                { key: '교사게시판', name: '교사게시판', badge: 'bg-purple-50 text-purple-700' },
+                { key: '인천교육', name: '인천교육', badge: 'bg-amber-50 text-amber-700' }
+            ];
+
+            document.getElementById('community-boards').innerHTML = boards.slice(1).map(b => {
+                const count = allPosts.filter(p => p.cat === b.key).length;
+                const active = b.key === communityFilter;
+                return `
+                    <div onclick="setCommunityBoard('${b.key}')" class="bg-white p-5 rounded-2xl border transition cursor-pointer hover:shadow-md ${active ? 'border-blue-600 ring-2 ring-blue-500/20' : 'border-slate-200'}">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded-md ${b.badge}">${b.name}</span>
+                            <span class="text-xs text-slate-400">글 ${count}개</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900">${b.name}</h4>
+                    </div>
+                `;
+            }).join('');
+
+            const filtered = allPosts.filter(p => {
+                const commCats = ['학부모게시판', '학생게시판', '교사게시판', '인천교육'];
+                if (!commCats.includes(p.cat)) return false;
+                if (communityFilter !== '전체' && p.cat !== communityFilter) return false;
+                return true;
+            });
+
+            document.getElementById('community-title').textContent = communityFilter === '전체' ? '전체 광장 소식' : communityFilter;
+            document.getElementById('community-count').textContent = `총 ${filtered.length}개`;
+
+            let num = filtered.length;
+            document.getElementById('community-list').innerHTML = filtered.map(p => `
+                <li onclick="viewPost('${p.id}')" class="grid grid-cols-12 gap-2 px-5 py-4 hover:bg-blue-50/50 cursor-pointer items-center text-sm transition ${p.pinned ? 'bg-amber-50/50' : ''}">
+                    <span class="hidden md:block col-span-1 text-center text-xs text-slate-400">${p.pinned ? '📌 공지' : num--}</span>
+                    <span class="col-span-12 md:col-span-2">
+                        <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">${escapeHtml(p.cat)}</span>
+                    </span>
+                    <span class="col-span-12 md:col-span-7 font-medium text-slate-800 truncate pr-2">${escapeHtml(p.title)}</span>
+                    <span class="col-span-12 md:col-span-2 md:text-center text-xs text-slate-400">${p.date || ''}</span>
+                </li>
+            `).join('') || '<li class="p-8 text-center text-slate-400 text-sm">등록된 글이 없습니다.</li>';
+
+            safeIcons();
+        }
+
+        function renderAdmissionContent() {
+            const admPost = allPosts.find(p => p.cat === '위탁절차');
+            const container = document.getElementById('admission-blog-content');
+            if (!container) return;
+
+            if (admPost) {
+                const curCfg = getSiteConfig();
+                const processedBlocks = [];
+                const rawBlocks = admPost.blocks || [];
+
+                for (let i = 0; i < rawBlocks.length; i++) {
+                    const b = rawBlocks[i];
+
+                    const blockText = b.t === 'paragraphs'
+                        ? (b.paras || []).map(paragraph => paragraph.text || '').join('\n')
+                        : (b.t === 'text' ? b.v || '' : '');
+
+                    if (blockText.includes('필수) 입학조사서 관련 유의사항')) {
+                        const rawNoticeTitle = curCfg.admissionNoticeTitle || '** 필수) 입학조사서 관련 유의사항 **';
+                        const noticeTitleHtml = escapeHtml(rawNoticeTitle)
+                            .replace(/\*\*/g, '<span class="text-rose-600 font-black">**</span>');
+                        const item1Html = escapeHtml(curCfg.admissionItem1Text || '1. <입학조사서>는 아래의 양식 사용해 주세요.');
+
+                        const yearBadge = escapeHtml(curCfg.admissionYearBadge || '2026 최신 서식');
+                        const boxTitle = escapeHtml(curCfg.admissionBoxTitle || '마음더하기학교 입학(위탁)조사서 양식 다운로드');
+
+                        const parentUrl = escapeHtml(curCfg.admissionParentFileUrl || 'files/마음더하기_입학조사서_학부모용(2026).hwp');
+                        const parentName = escapeHtml(curCfg.admissionParentFileName || '입학조사서 (학부모용)');
+                        const parentSize = escapeHtml(curCfg.admissionParentFileSize || '한글 HWP (75 KB)');
+                        const parentDesc = escapeHtml(curCfg.admissionParentFileDesc || '보호자께서 작성하시는 학생 기본 인적사항, 성장 배경 및 위탁 신청 사유 서식');
+
+                        const studentUrl = escapeHtml(curCfg.admissionStudentFileUrl || 'files/마음더하기_입학조사서_학생용(2026).hwp');
+                        const studentName = escapeHtml(curCfg.admissionStudentFileName || '입학조사서 (학생용)');
+                        const studentSize = escapeHtml(curCfg.admissionStudentFileSize || '한글 HWP (143 KB)');
+                        const studentDesc = escapeHtml(curCfg.admissionStudentFileDesc || '위탁 희망 학생 본인이 직접 작성하는 자기소개, 학교생활 희망사항 및 기초 설문 서식');
+
+                        const boxHtml = `
+<div class="font-extrabold text-base sm:text-lg text-slate-900 mb-3 flex items-center gap-2">${noticeTitleHtml}</div>
+<p class="text-slate-700 text-sm sm:text-base mb-2">${item1Html}</p>
+<div class="my-6 p-5 sm:p-6 bg-gradient-to-br from-blue-50/80 to-indigo-50/50 rounded-2xl border border-blue-200 shadow-xs">
+    <div class="flex items-center gap-2 mb-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-600 text-white text-xs font-bold">
+            <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
+            <span>${yearBadge}</span>
+        </span>
+        <span class="font-extrabold text-slate-900 text-sm sm:text-base">${boxTitle}</span>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3.5">
+        <!-- 학부모용 -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200/90 shadow-xs flex flex-col justify-between">
+            <div class="mb-3">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                    <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">학부모 작성용</span>
+                    <span class="text-[11px] text-slate-400 font-medium">${parentSize}</span>
+                </div>
+                <h4 class="font-bold text-slate-900 text-sm truncate" title="${parentName}">${parentName}</h4>
+                <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">${parentDesc}</p>
+            </div>
+            <a href="${parentUrl}" download="${parentName}" class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-xs">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                <span>학부모용 조사서 다운로드</span>
+            </a>
+        </div>
+        <!-- 학생용 -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200/90 shadow-xs flex flex-col justify-between">
+            <div class="mb-3">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                    <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">학생 작성용</span>
+                    <span class="text-[11px] text-slate-400 font-medium">${studentSize}</span>
+                </div>
+                <h4 class="font-bold text-slate-900 text-sm truncate" title="${studentName}">${studentName}</h4>
+                <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">${studentDesc}</p>
+            </div>
+            <a href="${studentUrl}" download="${studentName}" class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-xs">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                <span>학생용 조사서 다운로드</span>
+            </a>
+        </div>
+    </div>
+</div>`;
+
+                        processedBlocks.push({ t: 'custom_html', v: boxHtml });
+
+                        // 뒤따라오는 이전 네이버 만료 파일 블록 건너뛰기
+                        while (i + 1 < rawBlocks.length && rawBlocks[i + 1].t === 'file') {
+                            i++;
+                        }
+                    } else if (b.t === 'file' && (b.name || '').includes('입학조사서')) {
+                        // 이미 카드로 치환했으므로 건너뜀
+                        continue;
+                    } else if (b.t === 'text' && b.v && b.v.includes('2. <입학조사서>')) {
+                        // 공개 사이트 설정의 유의사항 본문으로 표시
+                        const notesText = (curCfg.admissionNotes !== undefined) ? curCfg.admissionNotes : b.v;
+                        processedBlocks.push({
+                            t: 'custom_html',
+                            v: `<div class="se-admission-notes text-slate-700 leading-relaxed font-normal whitespace-pre-line text-sm sm:text-base my-4">${escapeHtml(notesText)}</div>`
+                        });
+                    } else {
+                        processedBlocks.push(b);
+                    }
+                }
+
+                // custom_html 렌더링 지원
+                const bodyHtml = processedBlocks.map(b => {
+                    if (b.t === 'custom_html') return b.v;
+                    return renderPostBlocks([b]);
+                }).join('');
+
+                container.innerHTML = `
+                    <div class="mb-6 pb-4 border-b border-slate-100 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700">네이버 블로그 공지 연동</span>
+                            <h3 class="text-xl font-bold text-slate-900 mt-2">${escapeHtml(admPost.title)}</h3>
+                        </div>
+                        <a href="https://blog.naver.com/mdlove503/${admPost.id}" target="_blank" rel="noopener" class="text-xs text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-xl border border-emerald-200 transition font-medium flex items-center gap-1">
+                            <span>원문 보기</span><i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="se-post-content">${bodyHtml}</div>
+                `;
+            } else {
+                container.innerHTML = '<p class="text-slate-400">위탁절차 안내를 불러오는 중입니다.</p>';
+            }
+            safeIcons();
+        }
+
+        function escapeHtml(str) {
+            return String(str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            applySiteConfig();
+            initData();
+            showTab('home');
+            renderHomeRecent();
+            renderGallery();
+            renderSchedule();
+            renderCommunity();
+            renderAdmissionContent();
+            safeIcons();
+        });
+    </script>
+</body>
+</html>
